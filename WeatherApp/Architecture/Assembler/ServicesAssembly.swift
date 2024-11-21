@@ -9,6 +9,10 @@ import Foundation
 import Swinject
 class ServicesAssembly: Assembly {
     func assemble(container: Container) {
+        container.register(LocalStorageServiceProtocol.self) { _ in
+            LocalStorageService(appleUserDefault: UserDefaults.standard)
+        }.inObjectScope(.container)
+        
         container.register((any NetworkingServiceProtocol).self) { _ in
             NetworkingService()
         }.inObjectScope(.container)

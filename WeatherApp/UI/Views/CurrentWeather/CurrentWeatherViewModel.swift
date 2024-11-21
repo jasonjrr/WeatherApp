@@ -16,7 +16,7 @@ class CurrentWeatherViewModel: ViewModel {
     private(set) var currentWeather: CurrentWeather?
     
     var currentTemperatureF: String {
-        if let temperature = self.currentWeather?.weather.temperatureF {
+        if let temperature = self.currentWeather?.weather?.temperatureF {
             return "\(Int(temperature))"
         } else {
             return " "
@@ -24,7 +24,7 @@ class CurrentWeatherViewModel: ViewModel {
     }
     
     var conditionIconURL: URL? {
-        if let iconURL = self.currentWeather?.weather.condition.iconURL,
+        if let iconURL = self.currentWeather?.weather?.condition.iconURL,
            let url = URL(string: "https:" + iconURL) {
             return url
         } else {
@@ -33,7 +33,7 @@ class CurrentWeatherViewModel: ViewModel {
     }
     
     var humidity: String {
-        if let humidity = self.currentWeather?.weather.humidity {
+        if let humidity = self.currentWeather?.weather?.humidity {
             return "\(humidity)%"
         } else {
             return " "
@@ -41,7 +41,7 @@ class CurrentWeatherViewModel: ViewModel {
     }
     
     var uvIndex: String {
-        if let uvIndex = self.currentWeather?.weather.uvIndex {
+        if let uvIndex = self.currentWeather?.weather?.uvIndex {
             return "\(uvIndex)"
         } else {
             return " "
@@ -49,24 +49,32 @@ class CurrentWeatherViewModel: ViewModel {
     }
     
     var feelsLikeTemperatureF: String {
-        if let feelsLike = self.currentWeather?.weather.feelsLikeF {
+        if let feelsLike = self.currentWeather?.weather?.feelsLikeF {
             return "\(Int(feelsLike))º"
         } else {
             return " "
         }
     }
     
-    init(location: Location, weatherAPIService: any WeatherAPIServiceProtocol) {
+    private var currentWeatherCancellable: AnyCancellable?
+    
+    init(location: Location, currentWeather: CurrentWeather? = nil, weatherAPIService: any WeatherAPIServiceProtocol) {
         self.location = location
+        self.currentWeather = currentWeather
         self.weatherAPIService = weatherAPIService
     }
     
     func fetchCurrentWeather() {
-        Task {
-            self.currentWeather = try? await self.weatherAPIService
-                .current(for: self.location)
-                .async()
-                .model
+        if self.currentWeather != nil {
+            return
         }
+        
+        self.currentWeatherCancellable = self.weatherAPIService
+            .current(for: self.location)
+            .sink(receiveCompletion: { completion in
+                print("Fetch current weather completed: \(completion)")
+            }, receiveValue: { [weak self] response in
+                self?.currentWeather = response.model
+            })
     }
 }

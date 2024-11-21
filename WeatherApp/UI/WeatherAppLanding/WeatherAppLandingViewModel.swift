@@ -11,11 +11,22 @@ import Combine
 @Observable
 class WeatherAppLandingViewModel: ViewModel {
     @ObservationIgnored
+    private let localStorage: LocalStorageServiceProtocol
+    
+    @ObservationIgnored
     private weak var delegate: Delegate?
     
     private(set) var selectedWeatherViewModel: CurrentWeatherViewModel?
     
-    init() {}
+    init(localStorage: LocalStorageServiceProtocol, weatherAPIService: any WeatherAPIServiceProtocol) {
+        self.localStorage = localStorage
+        if let currentWeather = self.localStorage.getWeather() {
+            self.selectedWeatherViewModel = CurrentWeatherViewModel(
+                location: currentWeather.location,
+                currentWeather: currentWeather,
+                weatherAPIService: weatherAPIService)
+        }
+    }
     
     @discardableResult
     func setup(delegate: Delegate) -> Self {
@@ -29,6 +40,11 @@ class WeatherAppLandingViewModel: ViewModel {
     
     func select(_ currentWeatherViewModel: CurrentWeatherViewModel) {
         self.selectedWeatherViewModel = currentWeatherViewModel
+        if let currentWeather = currentWeatherViewModel.currentWeather {
+            self.localStorage.setWeather(currentWeather)
+        } else {
+            self.localStorage.setWeather(CurrentWeather(location: currentWeatherViewModel.location, weather: nil))
+        }
     }
 }
 

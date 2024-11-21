@@ -28,6 +28,9 @@ struct WeatherAppLandingView: View {
                 ScrollView {
                     CurrentWeatherHighlightView(viewModel: selectedWeatherViewModel)
                         .padding(.top, 80.0)
+                        .task {
+                            selectedWeatherViewModel.fetchCurrentWeather()
+                        }
                 }
             } else {
                 noLocationView()

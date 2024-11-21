@@ -15,8 +15,10 @@ class ViewModelAssembly: Assembly {
                 weatherAPIService: resolver.resolve(WeatherAPIServiceProtocol.self)!)
         }.inObjectScope(.transient)
         
-        container.register(WeatherAppLandingViewModel.self) { _ in
-            WeatherAppLandingViewModel()
+        container.register(WeatherAppLandingViewModel.self) { resolver in
+            WeatherAppLandingViewModel(
+                localStorage: resolver.resolve(LocalStorageServiceProtocol.self)!,
+                weatherAPIService: resolver.resolve(WeatherAPIServiceProtocol.self)!)
         }.inObjectScope(.transient)
     }
 }

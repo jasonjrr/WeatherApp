@@ -9,7 +9,7 @@ import Foundation
 
 struct CurrentWeather: Codable {
     let location: Location
-    let weather: Weather
+    let weather: Weather?
     
     enum CodingKeys: String, CodingKey {
         case location = "location"
