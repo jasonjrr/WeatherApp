@@ -25,10 +25,21 @@ class WeatherAPIService: WeatherAPIServiceProtocol {
     func search(_ query: String) -> AnyPublisher<NetworkingServiceResponse<[Location]>, Error> {
         self.networkingService.publishers
             .fetch(
-                from: URL(string: "http://api.weatherapi.com/v1/search.json")!,
+                from: URL(string: "https://api.weatherapi.com/v1/search.json")!,
                 parameters: [
                     "key": self.apiKey,
                     "q": query
+                ])
+                .eraseToAnyPublisher()
+    }
+    
+    func current(for location: Location) -> AnyPublisher<NetworkingServiceResponse<Data>, Error> {
+        self.networkingService.publishers
+            .fetch(
+                from: URL(string: "https://api.weatherapi.com/v1/current.json")!,
+                parameters: [
+                    "key": self.apiKey,
+                    "q": location.name
                 ])
                 .eraseToAnyPublisher()
     }

@@ -16,6 +16,34 @@ struct WeatherAppLandingView: View {
     }
     
     var body: some View {
-        Text("Hello, World!")
+        VStack {
+            SearchFieldView(title: "Search Location", query: .constant(.empty))
+                .allowsHitTesting(false)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    self.viewModel.onSearchTapped()
+                }
+            Spacer()
+            if let location = self.viewModel.selectedLocation {
+                EmptyView()
+            } else {
+                noLocationView()
+            }
+            Spacer()
+        }
+        .padding()
+        .background(self.theme.colors.background.color)
+    }
+    
+    private func noLocationView() -> some View {
+        VStack {
+            Text("No City Selected")
+                .font(ofSize: 30.0)
+                .foregroundStyle(self.theme.colors.label.color)
+            Text("Please Search For A City")
+                .font(ofSize: 15.0)
+                .foregroundStyle(self.theme.colors.label.color)
+                .padding()
+        }
     }
 }

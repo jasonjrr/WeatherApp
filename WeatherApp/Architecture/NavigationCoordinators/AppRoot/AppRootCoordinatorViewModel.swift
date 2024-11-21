@@ -14,6 +14,7 @@ class AppRootCoordinatorViewModel: ViewModel {
     private let resolver: Resolver
     
     let weatherAppLandingViewModel: WeatherAppLandingViewModel
+    private(set) var locationSearchViewModel: LocationSearchViewModel?
     
     init(resolver: Resolver) {
         self.resolver = resolver
@@ -24,5 +25,15 @@ class AppRootCoordinatorViewModel: ViewModel {
 
 // MARK: WeatherAppLandingViewModel.Delegate
 extension AppRootCoordinatorViewModel: WeatherAppLandingViewModel.Delegate {
-    
+    func weatherAppLandingViewModelDidTapSearch(_ viewModel: WeatherAppLandingViewModel) {
+        self.locationSearchViewModel = resolver.resolve(LocationSearchViewModel.self)!
+            .setup(delegate: self)
+    }
+}
+
+// MARK: LocationSearchViewModel.Delegate
+extension AppRootCoordinatorViewModel: LocationSearchViewModel.Delegate {
+    func locationSearchViewModelDidCancel(_ source: LocationSearchViewModel) {
+        self.locationSearchViewModel = nil
+    }
 }

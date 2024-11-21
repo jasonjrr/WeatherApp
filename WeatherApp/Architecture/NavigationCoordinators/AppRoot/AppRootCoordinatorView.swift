@@ -16,5 +16,10 @@ struct AppRootCoordinatorView: View {
     
     var body: some View {
         WeatherAppLandingView(viewModel: self.coordinator.weatherAppLandingViewModel)
+            .overlay {
+                if let locationSearchViewModel = self.coordinator.locationSearchViewModel {
+                    LocationSearchView(viewModel: locationSearchViewModel)
+                }
+            }
     }
 }

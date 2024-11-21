@@ -26,6 +26,7 @@ struct SearchFieldView: View {
             TextField(String.empty, text: self.$query)
                 .focused(self.$isFocused)
                 .foregroundStyle(self.theme.colors.label.color)
+                .submitLabel(.search)
                 .overlay(alignment: .leading) {
                     if self.query.isEmpty {
                         Text(self.title)

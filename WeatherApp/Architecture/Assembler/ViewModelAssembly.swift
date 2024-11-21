@@ -10,6 +10,11 @@ import Swinject
 
 class ViewModelAssembly: Assembly {
     func assemble(container: Container) {
+        container.register(LocationSearchViewModel.self) { resolver in
+            LocationSearchViewModel(
+                weatherAPIService: resolver.resolve(WeatherAPIServiceProtocol.self)!)
+        }.inObjectScope(.transient)
+        
         container.register(WeatherAppLandingViewModel.self) { _ in
             WeatherAppLandingViewModel()
         }.inObjectScope(.transient)
