@@ -17,9 +17,13 @@ struct AppRootCoordinatorView: View {
     var body: some View {
         WeatherAppLandingView(viewModel: self.coordinator.weatherAppLandingViewModel)
             .overlay {
-                if let locationSearchViewModel = self.coordinator.locationSearchViewModel {
-                    LocationSearchView(viewModel: locationSearchViewModel)
+                ZStack {
+                    if let locationSearchViewModel = self.coordinator.locationSearchViewModel {
+                        LocationSearchView(viewModel: locationSearchViewModel)
+                    }
                 }
+                .transition(.opacity)
+                .animation(.smooth, value: self.coordinator.locationSearchViewModel)
             }
     }
 }

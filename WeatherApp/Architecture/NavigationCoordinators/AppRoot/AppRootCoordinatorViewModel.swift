@@ -20,6 +20,8 @@ class AppRootCoordinatorViewModel: ViewModel {
         self.resolver = resolver
         self.weatherAppLandingViewModel = resolver.resolve(WeatherAppLandingViewModel.self)!
         self.weatherAppLandingViewModel.setup(delegate: self)
+        
+        URLCache.setCacheSize()
     }
 }
 

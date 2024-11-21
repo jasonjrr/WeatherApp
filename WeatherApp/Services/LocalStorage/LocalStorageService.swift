@@ -8,7 +8,7 @@
 import Foundation
 
 protocol LocalStorageServiceProtocol: AnyObject {
-    func deleteAllValues() -> Bool
+    func deleteAllValues()
     // MARK: Bool
     func value(for key: LocalStorageBoolKey) -> Bool
     func set(_ value: Bool, for key: LocalStorageBoolKey)
@@ -33,9 +33,8 @@ class LocalStorageService: LocalStorageServiceProtocol {
         self.defaults = appleUserDefault
     }
     
-    func deleteAllValues() -> Bool {
+    func deleteAllValues() {
         self.defaults.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-        return self.defaults.synchronize()
     }
     
     // MARK: Bool

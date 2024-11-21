@@ -27,8 +27,8 @@ struct LocationSearchView: View {
                     if let searchResult = self.viewModel.searchResult {
                         switch searchResult {
                         case .success(let currentWeatherViewModels):
-                            ForEach(currentWeatherViewModels) { currentWeatherViewModel in
-                               weatherLocationButton(currentWeatherViewModel)
+                            SuccessStackView(currentWeatherViewModels: currentWeatherViewModels) {
+                                self.viewModel.select($0)
                             }
                         case .failure(let error):
                             Text(error.localizedDescription)
@@ -61,16 +61,38 @@ struct LocationSearchView: View {
             self.isFocused = true
         }
     }
-    
-    private func weatherLocationButton(_ currentWeatherViewModel: CurrentWeatherViewModel) -> some View {
-        Button {
-            self.viewModel.select(currentWeatherViewModel)
-        } label: {
-            CurrentWeatherSearchCardView(viewModel: currentWeatherViewModel)
-                .task {
-                    currentWeatherViewModel.fetchCurrentWeather()
-                }
+}
+
+extension LocationSearchView {
+    struct SuccessStackView: View {
+        let currentWeatherViewModels: [CurrentWeatherViewModel]
+        private let select: (CurrentWeatherViewModel) -> Void
+        
+        init(currentWeatherViewModels: [CurrentWeatherViewModel], select: @escaping (CurrentWeatherViewModel) -> Void) {
+            self.currentWeatherViewModels = currentWeatherViewModels
+            self.select = select
         }
-        .buttonStyle(.plain)
+        
+        var body: some View {
+            LazyVStack {
+                ForEach(currentWeatherViewModels) { currentWeatherViewModel in
+                    weatherLocationButton(currentWeatherViewModel)
+                }
+            }
+            .transition(.opacity)
+            .animation(.smooth, value: self.currentWeatherViewModels)
+        }
+        
+        private func weatherLocationButton(_ currentWeatherViewModel: CurrentWeatherViewModel) -> some View {
+            Button {
+                select(currentWeatherViewModel)
+            } label: {
+                CurrentWeatherSearchCardView(viewModel: currentWeatherViewModel)
+                    .task {
+                        currentWeatherViewModel.fetchCurrentWeather()
+                    }
+            }
+            .buttonStyle(.plain)
+        }
     }
 }
