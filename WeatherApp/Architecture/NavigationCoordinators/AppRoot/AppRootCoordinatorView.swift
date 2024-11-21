@@ -15,6 +15,6 @@ struct AppRootCoordinatorView: View {
     }
     
     var body: some View {
-        Text("Hello, World!")
+        WeatherAppLandingView(viewModel: self.coordinator.weatherAppLandingViewModel)
     }
 }

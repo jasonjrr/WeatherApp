@@ -10,7 +10,7 @@ import Swinject
 class ServicesAssembly: Assembly {
     func assemble(container: Container) {
         container.register(Theme.self) { _ in
-            Theme()
+            Theme(colors: .appAppearance)
         }.inObjectScope(.container)
     }
 }

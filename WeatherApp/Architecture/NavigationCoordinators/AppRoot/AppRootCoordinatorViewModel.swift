@@ -13,7 +13,16 @@ class AppRootCoordinatorViewModel: ViewModel {
     @ObservationIgnored
     private let resolver: Resolver
     
+    let weatherAppLandingViewModel: WeatherAppLandingViewModel
+    
     init(resolver: Resolver) {
         self.resolver = resolver
+        self.weatherAppLandingViewModel = resolver.resolve(WeatherAppLandingViewModel.self)!
+        self.weatherAppLandingViewModel.setup(delegate: self)
     }
+}
+
+// MARK: WeatherAppLandingViewModel.Delegate
+extension AppRootCoordinatorViewModel: WeatherAppLandingViewModel.Delegate {
+    
 }

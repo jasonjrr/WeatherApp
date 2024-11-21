@@ -10,6 +10,8 @@ import Swinject
 
 class ViewModelAssembly: Assembly {
     func assemble(container: Container) {
-        
+        container.register(WeatherAppLandingViewModel.self) { _ in
+            WeatherAppLandingViewModel()
+        }.inObjectScope(.transient)
     }
 }
