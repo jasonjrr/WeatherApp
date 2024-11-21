@@ -11,6 +11,7 @@ import CombineExt
 
 protocol WeatherAPIServiceProtocol: AnyObject {
     func search(_ query: String) -> AnyPublisher<NetworkingServiceResponse<[Location]>, Error>
+    func current(for location: Location) -> AnyPublisher<NetworkingServiceResponse<CurrentWeather>, Error>
 }
 
 class WeatherAPIService: WeatherAPIServiceProtocol {
@@ -33,7 +34,7 @@ class WeatherAPIService: WeatherAPIServiceProtocol {
                 .eraseToAnyPublisher()
     }
     
-    func current(for location: Location) -> AnyPublisher<NetworkingServiceResponse<Data>, Error> {
+    func current(for location: Location) -> AnyPublisher<NetworkingServiceResponse<CurrentWeather>, Error> {
         self.networkingService.publishers
             .fetch(
                 from: URL(string: "https://api.weatherapi.com/v1/current.json")!,

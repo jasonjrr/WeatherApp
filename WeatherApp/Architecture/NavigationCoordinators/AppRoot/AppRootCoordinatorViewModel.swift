@@ -33,6 +33,11 @@ extension AppRootCoordinatorViewModel: WeatherAppLandingViewModel.Delegate {
 
 // MARK: LocationSearchViewModel.Delegate
 extension AppRootCoordinatorViewModel: LocationSearchViewModel.Delegate {
+    func locationSearchViewModel(_ source: LocationSearchViewModel, didSelect currentWeatherViewModel: CurrentWeatherViewModel) {
+        self.weatherAppLandingViewModel.select(currentWeatherViewModel)
+        self.locationSearchViewModel = nil
+    }
+    
     func locationSearchViewModelDidCancel(_ source: LocationSearchViewModel) {
         self.locationSearchViewModel = nil
     }

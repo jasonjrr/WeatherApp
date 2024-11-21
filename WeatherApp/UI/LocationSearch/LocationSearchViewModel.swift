@@ -20,7 +20,7 @@ class LocationSearchViewModel: ViewModel {
     }
     private let querySubject: CurrentValueSubject<String, Never> = CurrentValueSubject(.empty)
     
-    private(set) var searchResult: Result<[Location], Error>?
+    private(set) var searchResult: Result<[CurrentWeatherViewModel], Error>?
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -42,9 +42,15 @@ class LocationSearchViewModel: ViewModel {
                         .eraseToAnyPublisher()
                 }
             }
-            .map { response -> Result<[Location], Error>? in
+            .map { [weatherAPIService] response -> Result<[CurrentWeatherViewModel], Error>? in
                 if let locations = response?.model {
-                    return .success(locations)
+                    let viewModels = locations
+                        .map {
+                            CurrentWeatherViewModel(
+                                location: $0,
+                                weatherAPIService: weatherAPIService)
+                        }
+                    return .success(viewModels)
                 } else {
                     return nil
                 }
@@ -64,6 +70,10 @@ class LocationSearchViewModel: ViewModel {
         return self
     }
     
+    func select(_ currentWeatherViewModel: CurrentWeatherViewModel) {
+        self.delegate?.locationSearchViewModel(self, didSelect: currentWeatherViewModel)
+    }
+    
     func cancel() {
         self.delegate?.locationSearchViewModelDidCancel(self)
     }
@@ -71,6 +81,7 @@ class LocationSearchViewModel: ViewModel {
 
 extension LocationSearchViewModel {
     protocol Delegate: AnyObject {
+        func locationSearchViewModel(_ source: LocationSearchViewModel, didSelect currentWeatherViewModel: CurrentWeatherViewModel)
         func locationSearchViewModelDidCancel(_ source: LocationSearchViewModel)
     }
 }

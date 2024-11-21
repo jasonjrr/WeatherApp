@@ -26,9 +26,9 @@ struct LocationSearchView: View {
                 LazyVStack {
                     if let searchResult = self.viewModel.searchResult {
                         switch searchResult {
-                        case .success(let locations):
-                            ForEach(locations) { location in
-                                Text(location.name)
+                        case .success(let currentWeatherViewModels):
+                            ForEach(currentWeatherViewModels) { currentWeatherViewModel in
+                               weatherLocationButton(currentWeatherViewModel)
                             }
                         case .failure(let error):
                             Text(error.localizedDescription)
@@ -37,7 +37,8 @@ struct LocationSearchView: View {
                         Text("No Results")
                     }
                 }
-                .padding(.bottom, 56.0)
+                .padding(.horizontal)
+                .padding(.bottom, 80.0)
             }
             .scrollDismissesKeyboard(.interactively)
             .overlay(alignment: .bottom) {
@@ -51,7 +52,7 @@ struct LocationSearchView: View {
                             minHeight: self.theme.constants.minimumButtonSize,
                             idealHeight: self.theme.constants.minimumButtonSize)
                 }
-                .buttonStyle(.bordered)
+                .buttonStyle(.borderedProminent)
                 .padding()
             }
         }
@@ -59,5 +60,17 @@ struct LocationSearchView: View {
         .onAppear {
             self.isFocused = true
         }
+    }
+    
+    private func weatherLocationButton(_ currentWeatherViewModel: CurrentWeatherViewModel) -> some View {
+        Button {
+            self.viewModel.select(currentWeatherViewModel)
+        } label: {
+            CurrentWeatherSearchCardView(viewModel: currentWeatherViewModel)
+                .task {
+                    currentWeatherViewModel.fetchCurrentWeather()
+                }
+        }
+        .buttonStyle(.plain)
     }
 }

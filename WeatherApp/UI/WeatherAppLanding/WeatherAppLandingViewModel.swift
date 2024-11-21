@@ -10,9 +10,10 @@ import Combine
 
 @Observable
 class WeatherAppLandingViewModel: ViewModel {
+    @ObservationIgnored
     private weak var delegate: Delegate?
     
-    private(set) var selectedLocation: Location?
+    private(set) var selectedWeatherViewModel: CurrentWeatherViewModel?
     
     init() {}
     
@@ -24,6 +25,10 @@ class WeatherAppLandingViewModel: ViewModel {
     
     func onSearchTapped() {
         self.delegate?.weatherAppLandingViewModelDidTapSearch(self)
+    }
+    
+    func select(_ currentWeatherViewModel: CurrentWeatherViewModel) {
+        self.selectedWeatherViewModel = currentWeatherViewModel
     }
 }
 

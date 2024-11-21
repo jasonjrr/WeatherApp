@@ -24,8 +24,11 @@ struct WeatherAppLandingView: View {
                     self.viewModel.onSearchTapped()
                 }
             Spacer()
-            if let location = self.viewModel.selectedLocation {
-                EmptyView()
+            if let selectedWeatherViewModel = self.viewModel.selectedWeatherViewModel {
+                ScrollView {
+                    CurrentWeatherHighlightView(viewModel: selectedWeatherViewModel)
+                        .padding(.top, 80.0)
+                }
             } else {
                 noLocationView()
             }
