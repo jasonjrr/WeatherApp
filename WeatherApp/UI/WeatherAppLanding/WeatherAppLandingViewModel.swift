@@ -6,10 +6,13 @@
 //
 
 import Foundation
+import Combine
 
 @Observable
 class WeatherAppLandingViewModel: ViewModel {
     private weak var delegate: WeatherAppLandingViewModel.Delegate?
+    
+    init() {}
     
     @discardableResult
     func setup(delegate: WeatherAppLandingViewModel.Delegate) -> Self {
