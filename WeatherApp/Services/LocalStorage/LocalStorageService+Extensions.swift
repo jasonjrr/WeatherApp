@@ -8,18 +8,18 @@
 import Foundation
 
 extension LocalStorageServiceProtocol {
-    func getWeather() -> CurrentWeather? {
-        guard let data: Data = value(for: .weather) else {
+    func getLocation() -> Location? {
+        guard let data: Data = value(for: .location) else {
             return nil
         }
-        return try? JSONDecoder().decode(CurrentWeather.self, from: data)
+        return try? JSONDecoder().decode(Location.self, from: data)
     }
     
-    func setWeather(_ currentWeather: CurrentWeather?) {
-        if let currentWeather, let data = try? JSONEncoder().encode(currentWeather) {
-            set(data, for: .weather)
+    func setLocation(_ location: Location?) {
+        if let location, let data = try? JSONEncoder().encode(location) {
+            set(data, for: .location)
         } else {
-            set(nil, for: .weather)
+            set(nil, for: .location)
         }
     }
 }

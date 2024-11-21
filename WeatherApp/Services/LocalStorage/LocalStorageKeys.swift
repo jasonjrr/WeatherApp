@@ -16,7 +16,7 @@ enum LocalStorageBoolKey: String, CaseIterable {
 }
 
 enum LocalStorageDataKey: String, CaseIterable {
-    case weather
+    case location
     
     var key: String {
         "data:" + self.rawValue

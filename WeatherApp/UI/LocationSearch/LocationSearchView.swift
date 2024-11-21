@@ -34,7 +34,7 @@ struct LocationSearchView: View {
                             Text(error.localizedDescription)
                         }
                     } else {
-                        Text("No Results")
+                        EmptyView()
                     }
                 }
                 .padding(.horizontal)

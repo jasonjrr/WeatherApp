@@ -20,10 +20,9 @@ class WeatherAppLandingViewModel: ViewModel {
     
     init(localStorage: LocalStorageServiceProtocol, weatherAPIService: any WeatherAPIServiceProtocol) {
         self.localStorage = localStorage
-        if let currentWeather = self.localStorage.getWeather() {
+        if let location = self.localStorage.getLocation() {
             self.selectedWeatherViewModel = CurrentWeatherViewModel(
-                location: currentWeather.location,
-                currentWeather: currentWeather,
+                location: location,
                 weatherAPIService: weatherAPIService)
         }
     }
@@ -40,11 +39,7 @@ class WeatherAppLandingViewModel: ViewModel {
     
     func select(_ currentWeatherViewModel: CurrentWeatherViewModel) {
         self.selectedWeatherViewModel = currentWeatherViewModel
-        if let currentWeather = currentWeatherViewModel.currentWeather {
-            self.localStorage.setWeather(currentWeather)
-        } else {
-            self.localStorage.setWeather(CurrentWeather(location: currentWeatherViewModel.location, weather: nil))
-        }
+        self.localStorage.setLocation(currentWeatherViewModel.location)
     }
 }
 

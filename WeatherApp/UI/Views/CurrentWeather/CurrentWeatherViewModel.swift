@@ -58,9 +58,8 @@ class CurrentWeatherViewModel: ViewModel {
     
     private var currentWeatherCancellable: AnyCancellable?
     
-    init(location: Location, currentWeather: CurrentWeather? = nil, weatherAPIService: any WeatherAPIServiceProtocol) {
+    init(location: Location, weatherAPIService: any WeatherAPIServiceProtocol) {
         self.location = location
-        self.currentWeather = currentWeather
         self.weatherAPIService = weatherAPIService
     }
     
