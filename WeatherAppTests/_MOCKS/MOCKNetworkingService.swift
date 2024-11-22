@@ -31,28 +31,6 @@ class MockNetworkingService<TestModel: Decodable>: NetworkingServiceProtocol {
     func fetch<Model>(from url: URL, parameters: [String : String]?) -> AnyPublisher<NetworkingServiceResponse<Model>, any Error> where Model : Decodable {
         fatalError("Not implemented")
     }
-    
-    var mock_fetchImageFromURLRequest: ((_ request: URLRequest) -> AnyPublisher<NetworkingServiceImageResponse, any Error>)?
-    func fetchImage(from request: URLRequest) -> AnyPublisher<NetworkingServiceImageResponse, any Error> {
-        if let mock_fetchImageFromURLRequest {
-            return mock_fetchImageFromURLRequest(request)
-        } else {
-            fatalError(Errors.mockClosureNotImplemented.localizedDescription)
-        }
-    }
-    
-    var mock_fetchImageFromURL: ((_ url: URL) -> AnyPublisher<NetworkingServiceImageResponse, any Error>)?
-    func fetchImage(from url: URL) -> AnyPublisher<NetworkingServiceImageResponse, any Error> {
-        if let mock_fetchImageFromURL {
-            return mock_fetchImageFromURL(url)
-        } else {
-            fatalError(Errors.mockClosureNotImplemented.localizedDescription)
-        }
-    }
-    
-    func setHeader(_ identifier: any NetworkingHeadersCollection.HeaderIdentifier, to value: String?) {
-        fatalError("Not implemented")
-    }
 }
 
 extension MockNetworkingService {
@@ -75,25 +53,9 @@ extension MockNetworkingService {
         public func fetch<Model>(from url: URL) -> AnyPublisher<NetworkingServiceResponse<Model>, Error> where Model: Decodable, Model: Encodable {
             self.service.fetch(from: url)
         }
-        
-        public func fetch<Model>(from url: URL, headers: [any NetworkingHeadersCollection.HeaderIdentifier]?) -> AnyPublisher<NetworkingServiceResponse<Model>, any Error> where Model : Decodable, Model : Encodable {
-            self.service.fetch(from: url)
-        }
-        
+    
         public func fetch<Model>(from url: URL, parameters: [String: String]?) -> AnyPublisher<NetworkingServiceResponse<Model>, Error> where Model: Decodable, Model: Encodable {
             self.service.fetch(from: url, parameters: parameters)
-        }
-        
-        public func fetch<Model>(from url: URL, headers: [any NetworkingHeadersCollection.HeaderIdentifier]?, parameters: [String : String]?) -> AnyPublisher<NetworkingServiceResponse<Model>, any Error> where Model : Decodable, Model : Encodable {
-            self.service.fetch(from: url, parameters: parameters)
-        }
-        
-        public func fetchImage(from request: URLRequest) -> AnyPublisher<NetworkingServiceImageResponse, Error> {
-            self.service.fetchImage(from: request)
-        }
-        
-        public func fetchImage(from url: URL) -> AnyPublisher<NetworkingServiceImageResponse, Error> {
-            self.service.fetchImage(from: url)
         }
         
         public func post<Input, Output>(_ input: Input, toURL url: URL) -> AnyPublisher<NetworkingServiceResponse<Output>, Error> where Input: Codable, Output: Codable {
@@ -117,18 +79,9 @@ extension MockNetworkingService {
         
         public func fetch<Model>(
             from url: URL,
-            headers: [any NetworkingHeadersCollection.HeaderIdentifier]?,
             parameters: [String: String]?
         ) async throws -> NetworkingServiceResponse<Model> where Model: Decodable, Model: Encodable {
             try await self.service.fetch(from: url).async()
-        }
-        
-        public func fetchImage(from request: URLRequest) async throws -> NetworkingServiceImageResponse {
-            try await self.service.fetchImage(from: request).async()
-        }
-        
-        public func fetchImage(from url: URL) async throws -> NetworkingServiceImageResponse {
-            try await self.service.fetchImage(from: url).async()
         }
     }
     
