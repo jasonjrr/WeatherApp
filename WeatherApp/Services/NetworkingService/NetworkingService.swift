@@ -14,8 +14,6 @@ public protocol NetworkingServiceProtocol: AnyObject {
     associatedtype PublishersProxy : NetworkingServicePublishersProxyProtocol
     associatedtype AsyncProxy : NetworkingServiceAsyncProxyProtocol
     
-    var imageURLCache: URLCache? { get set }
-    
     /// `PublishersProxy` adhering to `NetworkingServicePublishersProxyProtocol`
     /// - Returns: A concrete implementation of `NetworkingServicePublishersProxyProtocol`
     var publishers: Self.PublishersProxy { get }
@@ -80,9 +78,8 @@ public final class NetworkingService: NetworkingServiceProtocol {
     public let configuration: URLSessionConfiguration
     public var imageURLCache: URLCache?
     
-    public init(configuration: URLSessionConfiguration = .default, imageURLCache: URLCache? = nil) {
+    public init(configuration: URLSessionConfiguration = .default) {
         self.configuration = configuration
-        self.imageURLCache = imageURLCache
     }
     
     private func fetch<Model>(

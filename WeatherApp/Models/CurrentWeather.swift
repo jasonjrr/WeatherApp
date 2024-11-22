@@ -17,6 +17,13 @@ struct CurrentWeather: Codable {
     }
 }
 
+extension CurrentWeather: Equatable {
+    static func == (lhs: CurrentWeather, rhs: CurrentWeather) -> Bool {
+        lhs.location == rhs.location
+        && lhs.weather == rhs.weather
+    }
+}
+
 struct Weather: Codable {
     let temperatureF: Double
     let feelsLikeF: Double
@@ -33,6 +40,16 @@ struct Weather: Codable {
     }
 }
 
+extension Weather: Equatable {
+    static func == (lhs: Weather, rhs: Weather) -> Bool {
+        lhs.temperatureF == rhs.temperatureF
+        && lhs.feelsLikeF == rhs.feelsLikeF
+        && lhs.condition == rhs.condition
+        && lhs.humidity == rhs.humidity
+        && lhs.uvIndex == rhs.uvIndex
+    }
+}
+
 extension Weather {
     struct Condition: Codable {
         let text: String
@@ -44,5 +61,13 @@ extension Weather {
             case iconURL = "icon"
             case code
         }
+    }
+}
+
+extension Weather.Condition: Equatable {
+    static func == (lhs: Weather.Condition, rhs: Weather.Condition) -> Bool {
+        lhs.text == rhs.text
+        && lhs.iconURL == rhs.iconURL
+        && lhs.code == rhs.code
     }
 }

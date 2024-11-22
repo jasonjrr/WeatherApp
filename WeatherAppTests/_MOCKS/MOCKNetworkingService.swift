@@ -9,14 +9,12 @@ import Foundation
 import Combine
 @testable import WeatherApp
 
-class MockNetworkingService<TestModel: Decodable>: NetworkingServiceProtocol {
-    var imageURLCache: URLCache?
-    
+class MOCKNetworkingService<TestModel: Decodable>: NetworkingServiceProtocol {
     var fetchFromURLCalled: Bool = false
     var fetchFromURLOutputResult: Result<TestModel, Error>?
     func fetch<Model>(from url: URL) -> AnyPublisher<NetworkingServiceResponse<Model>, any Error> where Model : Decodable {
-        fetchFromURLCalled = true
-        switch fetchFromURLOutputResult {
+        self.fetchFromURLCalled = true
+        switch self.fetchFromURLOutputResult {
         case .success(let model):
             return Just(NetworkingServiceResponse(model: model as! Model, response: HTTPURLResponse(url: URL(string: "www.google.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!))
                 .setFailureType(to: Error.self)
@@ -28,12 +26,24 @@ class MockNetworkingService<TestModel: Decodable>: NetworkingServiceProtocol {
         }
     }
     
+    var fetchFromURLWithParametersCalled: Bool = false
+    var fetchFromURLWithParametersOutputResult: Result<TestModel, Error>?
     func fetch<Model>(from url: URL, parameters: [String : String]?) -> AnyPublisher<NetworkingServiceResponse<Model>, any Error> where Model : Decodable {
-        fatalError("Not implemented")
+        self.fetchFromURLWithParametersCalled = true
+        switch self.fetchFromURLWithParametersOutputResult {
+        case .success(let model):
+            return Just(NetworkingServiceResponse(model: model as! Model, response: HTTPURLResponse(url: URL(string: "www.google.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!))
+                .setFailureType(to: Error.self)
+                .eraseToAnyPublisher()
+        case .failure(let error):
+            return Fail(error: error).eraseToAnyPublisher()
+        case .none:
+            fatalError(Errors.mockClosureNotImplemented.localizedDescription)
+        }
     }
 }
 
-extension MockNetworkingService {
+extension MOCKNetworkingService {
     enum Errors: Error {
         case mockClosureNotImplemented
     }
@@ -42,11 +52,11 @@ extension MockNetworkingService {
 struct IgnoredModel: Decodable {}
 
 // MARK: Publishers
-extension MockNetworkingService {
+extension MOCKNetworkingService {
     public struct NetworkingServicePublishersProxy: NetworkingServicePublishersProxyProtocol {
-        private let service: MockNetworkingService
+        private let service: MOCKNetworkingService
         
-        fileprivate init(service: MockNetworkingService) {
+        fileprivate init(service: MOCKNetworkingService) {
             self.service = service
         }
         
@@ -69,11 +79,11 @@ extension MockNetworkingService {
 }
 
 // MARK: Async
-extension MockNetworkingService {
+extension MOCKNetworkingService {
     public struct NetworkingServiceAsyncProxy: NetworkingServiceAsyncProxyProtocol {
-        private let service: MockNetworkingService
+        private let service: MOCKNetworkingService
         
-        fileprivate init(service: MockNetworkingService) {
+        fileprivate init(service: MOCKNetworkingService) {
             self.service = service
         }
         
