@@ -43,6 +43,8 @@
 		6FA687422CEF113D0057338C /* String+Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA687412CEF113D0057338C /* String+Empty.swift */; };
 		6FA687442CEF15780057338C /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA687432CEF15780057338C /* Location.swift */; };
 		6FD23E9A2CF051CA00A30BE3 /* WeatherAPIServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD23E992CF051CA00A30BE3 /* WeatherAPIServiceTests.swift */; };
+		6FD23E9E2CF0574C00A30BE3 /* LocationSearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD23E9D2CF0574C00A30BE3 /* LocationSearchViewModelTests.swift */; };
+		6FD23EA02CF0578800A30BE3 /* MOCKWeatherAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD23E9F2CF0578800A30BE3 /* MOCKWeatherAPIService.swift */; };
 		6FD446912CEFDA3800885796 /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD446902CEFDA3800885796 /* CurrentWeather.swift */; };
 		6FD446942CEFDCCA00885796 /* CurrentWeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD446932CEFDCCA00885796 /* CurrentWeatherViewModel.swift */; };
 		6FD446962CEFDE3600885796 /* CurrentWeatherSearchCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD446952CEFDE3600885796 /* CurrentWeatherSearchCardView.swift */; };
@@ -105,6 +107,8 @@
 		6FA687432CEF15780057338C /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		6FD23E972CF04ED800A30BE3 /* WeatherApp.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = WeatherApp.xctestplan; sourceTree = "<group>"; };
 		6FD23E992CF051CA00A30BE3 /* WeatherAPIServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPIServiceTests.swift; sourceTree = "<group>"; };
+		6FD23E9D2CF0574C00A30BE3 /* LocationSearchViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchViewModelTests.swift; sourceTree = "<group>"; };
+		6FD23E9F2CF0578800A30BE3 /* MOCKWeatherAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOCKWeatherAPIService.swift; sourceTree = "<group>"; };
 		6FD446902CEFDA3800885796 /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
 		6FD446932CEFDCCA00885796 /* CurrentWeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherViewModel.swift; sourceTree = "<group>"; };
 		6FD446952CEFDE3600885796 /* CurrentWeatherSearchCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherSearchCardView.swift; sourceTree = "<group>"; };
@@ -148,6 +152,7 @@
 			children = (
 				6F0288A32CF0125800F97F8D /* MOCKAppleUserDefaults.swift */,
 				6F0288A12CF011EE00F97F8D /* MOCKNetworkingService.swift */,
+				6FD23E9F2CF0578800A30BE3 /* MOCKWeatherAPIService.swift */,
 			);
 			path = _MOCKS;
 			sourceTree = "<group>";
@@ -353,8 +358,17 @@
 		6FD23E9B2CF056DF00A30BE3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				6FD23E9C2CF0573400A30BE3 /* LocationSearch */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		6FD23E9C2CF0573400A30BE3 /* LocationSearch */ = {
+			isa = PBXGroup;
+			children = (
+				6FD23E9D2CF0574C00A30BE3 /* LocationSearchViewModelTests.swift */,
+			);
+			path = LocationSearch;
 			sourceTree = "<group>";
 		};
 		6FD446922CEFDCBB00885796 /* CurrentWeather */ = {
@@ -589,6 +603,8 @@
 			files = (
 				6F0288AA2CF0478A00F97F8D /* LocalStorageService+ExtensionsTests.swift in Sources */,
 				6FF6854E2CEF03E5004965F6 /* WeatherAppTests.swift in Sources */,
+				6FD23E9E2CF0574C00A30BE3 /* LocationSearchViewModelTests.swift in Sources */,
+				6FD23EA02CF0578800A30BE3 /* MOCKWeatherAPIService.swift in Sources */,
 				6F0288A82CF0258C00F97F8D /* LocalStorageServiceTests.swift in Sources */,
 				6F0288A42CF0125800F97F8D /* MOCKAppleUserDefaults.swift in Sources */,
 				6F0288A22CF011EE00F97F8D /* MOCKNetworkingService.swift in Sources */,
