@@ -23,26 +23,10 @@ enum LocalStorageDataKey: String, CaseIterable {
     }
 }
 
-enum LocalStorageDateKey: String, CaseIterable {
-    case placeholderDate
-    
-    var key: String {
-        "date:" + self.rawValue
-    }
-}
-
 enum LocalStorageStringKey: String, CaseIterable {
     case placeholderString
     
     var key: String {
         "string:" + self.rawValue
-    }
-}
-
-enum LocalStorageStringArrayKey: String, CaseIterable {
-    case placeholderStringArray
-    
-    var key: String {
-        "string-array:" + self.rawValue
     }
 }

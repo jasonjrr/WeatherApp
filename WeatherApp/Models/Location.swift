@@ -22,3 +22,13 @@ struct Location: Codable {
         case country
     }
 }
+
+extension Location: Equatable {
+    static func == (lhs: Location, rhs: Location) -> Bool {
+        lhs.lat == rhs.lat 
+        && lhs.lon == rhs.lon
+        && lhs.name == rhs.name
+        && lhs.region == rhs.region
+        && lhs.country == rhs.country
+    }
+}
