@@ -10,7 +10,9 @@ import Combine
 
 @Observable
 class LocationSearchViewModel: ViewModel {
+    @ObservationIgnored
     private let weatherAPIService: any WeatherAPIServiceProtocol
+    @ObservationIgnored
     private weak var delegate: Delegate?
     
     var query: String = .empty {
@@ -18,6 +20,7 @@ class LocationSearchViewModel: ViewModel {
             self.querySubject.send(self.query)
         }
     }
+    @ObservationIgnored
     private let querySubject: CurrentValueSubject<String, Never> = CurrentValueSubject(.empty)
     
     private(set) var searchResult: Result<[CurrentWeatherViewModel], Error>?
@@ -37,6 +40,7 @@ class LocationSearchViewModel: ViewModel {
         }
     }
     
+    @ObservationIgnored
     private var queryCancellable: AnyCancellable?
     
     init(weatherAPIService: any WeatherAPIServiceProtocol) {

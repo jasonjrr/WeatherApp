@@ -12,7 +12,6 @@ import Combine
 class WeatherAppLandingViewModel: ViewModel {
     @ObservationIgnored
     private let localStorage: LocalStorageServiceProtocol
-    
     @ObservationIgnored
     private weak var delegate: Delegate?
     

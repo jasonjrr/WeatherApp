@@ -45,6 +45,8 @@
 		6FD23E9A2CF051CA00A30BE3 /* WeatherAPIServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD23E992CF051CA00A30BE3 /* WeatherAPIServiceTests.swift */; };
 		6FD23E9E2CF0574C00A30BE3 /* LocationSearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD23E9D2CF0574C00A30BE3 /* LocationSearchViewModelTests.swift */; };
 		6FD23EA02CF0578800A30BE3 /* MOCKWeatherAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD23E9F2CF0578800A30BE3 /* MOCKWeatherAPIService.swift */; };
+		6FD23EA32CF05C3A00A30BE3 /* WeatherAppLandingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD23EA22CF05C3A00A30BE3 /* WeatherAppLandingViewModelTests.swift */; };
+		6FD23EA52CF05D8100A30BE3 /* MOCKLocalStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD23EA42CF05D8100A30BE3 /* MOCKLocalStorageService.swift */; };
 		6FD446912CEFDA3800885796 /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD446902CEFDA3800885796 /* CurrentWeather.swift */; };
 		6FD446942CEFDCCA00885796 /* CurrentWeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD446932CEFDCCA00885796 /* CurrentWeatherViewModel.swift */; };
 		6FD446962CEFDE3600885796 /* CurrentWeatherSearchCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD446952CEFDE3600885796 /* CurrentWeatherSearchCardView.swift */; };
@@ -109,6 +111,8 @@
 		6FD23E992CF051CA00A30BE3 /* WeatherAPIServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPIServiceTests.swift; sourceTree = "<group>"; };
 		6FD23E9D2CF0574C00A30BE3 /* LocationSearchViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchViewModelTests.swift; sourceTree = "<group>"; };
 		6FD23E9F2CF0578800A30BE3 /* MOCKWeatherAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOCKWeatherAPIService.swift; sourceTree = "<group>"; };
+		6FD23EA22CF05C3A00A30BE3 /* WeatherAppLandingViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppLandingViewModelTests.swift; sourceTree = "<group>"; };
+		6FD23EA42CF05D8100A30BE3 /* MOCKLocalStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOCKLocalStorageService.swift; sourceTree = "<group>"; };
 		6FD446902CEFDA3800885796 /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
 		6FD446932CEFDCCA00885796 /* CurrentWeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherViewModel.swift; sourceTree = "<group>"; };
 		6FD446952CEFDE3600885796 /* CurrentWeatherSearchCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherSearchCardView.swift; sourceTree = "<group>"; };
@@ -151,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				6F0288A32CF0125800F97F8D /* MOCKAppleUserDefaults.swift */,
+				6FD23EA42CF05D8100A30BE3 /* MOCKLocalStorageService.swift */,
 				6F0288A12CF011EE00F97F8D /* MOCKNetworkingService.swift */,
 				6FD23E9F2CF0578800A30BE3 /* MOCKWeatherAPIService.swift */,
 			);
@@ -359,6 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				6FD23E9C2CF0573400A30BE3 /* LocationSearch */,
+				6FD23EA12CF05C2B00A30BE3 /* WeatherAppLanding */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -369,6 +375,14 @@
 				6FD23E9D2CF0574C00A30BE3 /* LocationSearchViewModelTests.swift */,
 			);
 			path = LocationSearch;
+			sourceTree = "<group>";
+		};
+		6FD23EA12CF05C2B00A30BE3 /* WeatherAppLanding */ = {
+			isa = PBXGroup;
+			children = (
+				6FD23EA22CF05C3A00A30BE3 /* WeatherAppLandingViewModelTests.swift */,
+			);
+			path = WeatherAppLanding;
 			sourceTree = "<group>";
 		};
 		6FD446922CEFDCBB00885796 /* CurrentWeather */ = {
@@ -601,6 +615,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FD23EA32CF05C3A00A30BE3 /* WeatherAppLandingViewModelTests.swift in Sources */,
+				6FD23EA52CF05D8100A30BE3 /* MOCKLocalStorageService.swift in Sources */,
 				6F0288AA2CF0478A00F97F8D /* LocalStorageService+ExtensionsTests.swift in Sources */,
 				6FF6854E2CEF03E5004965F6 /* WeatherAppTests.swift in Sources */,
 				6FD23E9E2CF0574C00A30BE3 /* LocationSearchViewModelTests.swift in Sources */,
