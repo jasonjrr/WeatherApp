@@ -41,6 +41,9 @@ struct LocationSearchView: View {
                 .padding(.bottom, 80.0)
             }
             .scrollDismissesKeyboard(.interactively)
+            .refreshable {
+                self.viewModel.refresh()
+            }
             .overlay(alignment: .bottom) {
                 Button {
                     self.isFocused = false
@@ -60,6 +63,18 @@ struct LocationSearchView: View {
         .onAppear {
             self.isFocused = true
         }
+        .alert(
+            Text(self.viewModel.alert?.title ?? .empty),
+            isPresented: self.$viewModel.showAlert,
+            presenting: self.viewModel.alert) { alert in
+                ForEach(alert.actions) { action in
+                    Button(action.label ?? .empty, role: action.role) {
+                        action.handler?()
+                    }
+                }
+            } message: { action in
+                Text(action.message ?? .empty)
+            }
     }
 }
 

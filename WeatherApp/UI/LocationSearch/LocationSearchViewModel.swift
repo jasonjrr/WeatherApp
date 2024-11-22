@@ -22,12 +22,36 @@ class LocationSearchViewModel: ViewModel {
     
     private(set) var searchResult: Result<[CurrentWeatherViewModel], Error>?
     
-    private var cancellables: Set<AnyCancellable> = []
+    var alert: Alert? {
+        didSet {
+            if self.alert != nil {
+                self.showAlert = true
+            }
+        }
+    }
+    var showAlert: Bool = false {
+        didSet {
+            if !self.showAlert {
+                self.alert = nil
+            }
+        }
+    }
+    
+    private var queryCancellable: AnyCancellable?
     
     init(weatherAPIService: any WeatherAPIServiceProtocol) {
         self.weatherAPIService = weatherAPIService
-        
-        self.querySubject
+        setupQuery()
+    }
+    
+    @discardableResult
+    func setup(delegate: Delegate) -> Self {
+        self.delegate = delegate
+        return self
+    }
+    
+    private func setupQuery() {
+        self.queryCancellable = self.querySubject
             .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
             .setFailureType(to: Error.self)
             .flatMapLatest { [weatherAPIService] query -> AnyPublisher<NetworkingServiceResponse<[Location]>?, Error> in
@@ -55,19 +79,29 @@ class LocationSearchViewModel: ViewModel {
                     return nil
                 }
             }
-            .catch { error in
-                Just(.failure(error))
+            .catch { error -> AnyPublisher<Result<[CurrentWeatherViewModel], Error>?, Never> in
+                Just(.failure(error)).eraseToAnyPublisher()
             }
             .sink(receiveValue: { [weak self] result in
                 self?.searchResult = result
+                
+                switch result {
+                case .success, .none:
+                    break
+                case .failure(let error):
+                    self?.alert = Alert(
+                        title: "An Error Occurred",
+                        message: error.localizedDescription,
+                        actions: [
+                            .cancel(),
+                            .ok(),
+                        ])
+                }
             })
-            .store(in: &self.cancellables)
     }
     
-    @discardableResult
-    func setup(delegate: Delegate) -> Self {
-        self.delegate = delegate
-        return self
+    func refresh() {
+        setupQuery()
     }
     
     func select(_ currentWeatherViewModel: CurrentWeatherViewModel) {
