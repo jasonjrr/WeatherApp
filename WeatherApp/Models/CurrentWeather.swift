@@ -29,7 +29,7 @@ struct Weather: Codable {
     let feelsLikeF: Double
     let condition: Condition
     let humidity: Int
-    let uvIndex: Int
+    let uvIndex: Double
     
     enum CodingKeys: String, CodingKey {
         case temperatureF = "temp_f"

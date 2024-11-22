@@ -42,12 +42,12 @@ struct WeatherAppLandingView: View {
     }
     
     private func noLocationView() -> some View {
-        VStack {
+        VStack(spacing: 8.0) {
             Text("No City Selected")
-                .font(ofSize: 30.0)
+                .font(ofSize: 30.0, weight: .bold)
                 .foregroundStyle(self.theme.colors.label.color)
             Text("Please Search For A City")
-                .font(ofSize: 15.0)
+                .font(ofSize: 15.0, weight: .bold)
                 .foregroundStyle(self.theme.colors.label.color)
                 .padding()
         }

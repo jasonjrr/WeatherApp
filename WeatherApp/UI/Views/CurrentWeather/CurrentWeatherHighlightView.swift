@@ -38,7 +38,9 @@ struct CurrentWeatherHighlightView: View {
             HStack(alignment: .top) {
                 Text(self.viewModel.currentTemperatureF)
                     .font(ofSize: 70.0, weight: .semibold)
-                Text("º").padding(.top, 8.0)
+                Text("º")
+                    .font(ofSize: 24.0, weight: .semibold)
+                    .padding(.top, 8.0)
             }
             
             HStack {

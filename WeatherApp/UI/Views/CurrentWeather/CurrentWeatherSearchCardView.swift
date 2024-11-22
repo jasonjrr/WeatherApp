@@ -22,6 +22,7 @@ struct CurrentWeatherSearchCardView: View {
                     .font(ofSize: 20.0, weight: .bold)
                 HStack(alignment: .top) {
                     Text("º")
+                        .font(ofSize: 18.0, weight: .semibold)
                         .padding(.top, 12.0)
                     Text(self.viewModel.currentTemperatureF)
                         .font(ofSize: 60.0, weight: .semibold)
